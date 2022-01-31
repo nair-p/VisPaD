@@ -1,0 +1,623 @@
+city_ascii,lat,lng
+Toronto,43.7417,-79.3733
+Montreal,45.5089,-73.5617
+Vancouver,49.25,-123.1
+Calgary,51.05,-114.0667
+Edmonton,53.5344,-113.4903
+Ottawa,45.4247,-75.695
+Mississauga,43.6,-79.65
+Winnipeg,49.8844,-97.1464
+Quebec City,46.8139,-71.2081
+Hamilton,43.2567,-79.8692
+Brampton,43.6833,-79.7667
+Surrey,49.19,-122.8489
+Kitchener,43.4186,-80.4728
+Laval,45.5833,-73.75
+Halifax,44.6475,-63.5906
+London,42.9836,-81.2497
+Victoria,48.4283,-123.3647
+Markham,43.8767,-79.2633
+St. Catharines,43.1833,-79.2333
+Niagara Falls,43.06,-79.1067
+Vaughan,43.8333,-79.5
+Gatineau,45.4833,-75.65
+Windsor,42.2833,-83.0
+Saskatoon,52.1333,-106.6833
+Longueuil,45.5333,-73.5167
+Burnaby,49.2667,-122.9667
+Regina,50.4547,-104.6067
+Richmond,49.1667,-123.1333
+Richmond Hill,43.8667,-79.4333
+Oakville,43.45,-79.6833
+Burlington,43.3167,-79.8
+Barrie,44.3711,-79.6769
+Oshawa,43.9,-78.85
+Sherbrooke,45.4,-71.9
+Saguenay,48.4167,-71.0667
+Levis,46.8,-71.1833
+Kelowna,49.8881,-119.4956
+Abbotsford,49.05,-122.3167
+Coquitlam,49.2839,-122.7919
+Guelph,43.55,-80.25
+Cambridge,43.3972,-80.3114
+Whitby,43.8833,-78.9417
+Ajax,43.8583,-79.0364
+Langley,49.1044,-122.5827
+Saanich,48.484,-123.381
+Terrebonne,45.7,-73.6333
+Milton,43.5083,-79.8833
+St. John's,47.4817,-52.7971
+Moncton,46.1328,-64.7714
+Thunder Bay,48.3822,-89.2461
+Dieppe,46.0989,-64.7242
+Waterloo,43.4667,-80.5167
+Delta,49.0847,-123.0586
+Chatham,42.4229,-82.1324
+Red Deer,52.2681,-113.8111
+Kamloops,50.6761,-120.3408
+Brantford,43.1667,-80.25
+Lethbridge,49.6942,-112.8328
+Saint-Jean-sur-Richelieu,45.3167,-73.2667
+Clarington,43.935,-78.6083
+Pickering,43.8354,-79.089
+Nanaimo,49.1642,-123.9364
+Sudbury,46.49,-81.01
+North Vancouver,49.3641,-123.0066
+Brossard,45.4667,-73.45
+Repentigny,45.7333,-73.4667
+Newmarket,44.05,-79.4667
+Chilliwack,49.1577,-121.9509
+White Rock,49.025,-122.8028
+Peterborough,44.3,-78.3167
+Kawartha Lakes,44.35,-78.75
+Prince George,53.9169,-122.7494
+Sault Ste. Marie,46.5333,-84.35
+Sarnia,42.9994,-82.3089
+New Westminster,49.2069,-122.9111
+Chateauguay,45.38,-73.75
+Saint-Jerome,45.7833,-74.0
+Drummondville,45.8833,-72.4833
+Saint John,45.2806,-66.0761
+Caledon,43.8667,-79.8667
+St. Albert,53.6303,-113.6258
+Granby,45.4,-72.7333
+Grande Prairie,55.1708,-118.7947
+Airdrie,51.2917,-114.0144
+Halton Hills,43.63,-79.95
+Saint-Hyacinthe,45.6167,-72.95
+Lac-Brome,45.2167,-72.5167
+Port Coquitlam,49.2625,-122.7811
+Fredericton,45.9636,-66.6431
+Blainville,45.67,-73.88
+Aurora,44.0,-79.4667
+Welland,42.9833,-79.2333
+North Bay,46.3,-79.45
+Beloeil,45.5667,-73.2
+Belleville,44.1667,-77.3833
+Mirabel,45.65,-74.0833
+Shawinigan,46.5667,-72.75
+Dollard-des-Ormeaux,45.4833,-73.8167
+Brandon,49.8483,-99.95
+Rimouski,48.45,-68.53
+Cornwall,45.0275,-74.74
+Georgina,44.3,-79.4333
+Victoriaville,46.05,-71.9667
+Vernon,50.267,-119.272
+Duncan,48.7787,-123.7079
+Saint-Eustache,45.57,-73.9
+Quinte West,44.1833,-77.5667
+Charlottetown,46.2403,-63.1347
+Mascouche,45.75,-73.6
+West Vancouver,49.3667,-123.1667
+Salaberry-de-Valleyfield,45.25,-74.13
+Rouyn-Noranda,48.2333,-79.0167
+Timmins,48.4667,-81.3333
+Sorel-Tracy,46.0333,-73.1167
+Woodstock,43.1306,-80.7467
+Boucherville,45.6,-73.45
+Mission,49.1337,-122.3112
+Vaudreuil-Dorion,45.4,-74.0333
+Brant,43.1167,-80.3667
+Prince Albert,53.2,-105.75
+Bradford West Gwillimbury,44.1333,-79.6333
+Campbell River,50.0244,-125.2475
+Spruce Grove,53.545,-113.9008
+Moose Jaw,50.3933,-105.5519
+Penticton,49.4911,-119.5886
+Port Moody,49.2831,-122.8317
+Leamington,42.0667,-82.5833
+Val-d'Or,48.1,-77.7833
+Owen Sound,44.5667,-80.9333
+Stratford,43.3708,-80.9819
+Lloydminster,53.2783,-110.005
+Pointe-Claire,45.45,-73.8167
+Orillia,44.6,-79.4167
+Alma,48.55,-71.65
+Orangeville,43.9167,-80.1167
+LaSalle,42.2167,-83.0667
+Sainte-Julie,45.5833,-73.3333
+Chambly,45.4311,-73.2873
+Saint-Constant,45.37,-73.57
+Boisbriand,45.62,-73.83
+Conception Bay South,47.5167,-52.9833
+Saint-Bruno-de-Montarville,45.5333,-73.35
+Cochrane,51.189,-114.467
+Thetford Mines,46.1,-71.3
+Courtenay,49.6878,-124.9944
+Magog,45.2667,-72.15
+Whitehorse,60.7029,-135.0691
+Clarence-Rockland,45.4833,-75.2
+Fort Saskatchewan,53.7128,-113.2133
+La Prairie,45.42,-73.5
+Tecumseh,42.2431,-82.9256
+Amherstburg,42.1,-83.0833
+Saint-Lambert,45.5,-73.5167
+Brockville,44.5833,-75.6833
+Collingwood,44.5,-80.2167
+Baie-Comeau,49.2167,-68.15
+Paradise,47.5333,-52.8667
+Candiac,45.38,-73.52
+Varennes,45.6833,-73.4333
+Essex,42.0833,-82.9
+Fort St. John,56.2465,-120.8476
+Kirkland,45.45,-73.8667
+L'Assomption,45.8333,-73.4167
+Westmount,45.4833,-73.6
+Chestermere,51.05,-113.8225
+Huntsville,45.3333,-79.2167
+Corner Brook,48.9287,-57.926
+Lloydminster,53.2807,-110.035
+Joliette,46.0167,-73.45
+Yellowknife,62.4709,-114.4053
+Mont-Royal,45.5161,-73.6431
+Cranbrook,49.5097,-115.7667
+Beaconsfield,45.4333,-73.8667
+Dorval,45.45,-73.75
+Thorold,43.1167,-79.2
+Pitt Meadows,49.2333,-122.6833
+Port Colborne,42.8833,-79.25
+Quispamsis,45.4322,-65.9462
+Bathurst,47.62,-65.65
+Salmon Arm,50.7022,-119.2722
+Port Alberni,49.2339,-124.805
+Deux-Montagnes,45.5333,-73.8833
+Miramichi,47.0196,-65.5072
+Beaumont,53.3572,-113.4147
+Stony Plain,53.5264,-114.0069
+Colwood,48.4236,-123.4958
+Sainte-Catherine,45.4,-73.58
+L'Ancienne-Lorette,46.8,-71.35
+Swift Current,50.2881,-107.7939
+Edmundston,47.3765,-68.3253
+Yorkton,51.2139,-102.4628
+Tracadie,47.5124,-64.9101
+Bracebridge,45.0333,-79.3
+Tillsonburg,42.8667,-80.7333
+Steinbach,49.5258,-96.6839
+Terrace,54.5164,-128.5997
+Gaspe,48.8333,-64.4833
+Kenora,49.7667,-94.4833
+Summerside,46.4,-63.7833
+Comox,49.6733,-124.9022
+Pincourt,45.3833,-73.9833
+Matane,48.85,-67.5333
+Brooks,50.5642,-111.8989
+Rosemere,45.6369,-73.8
+Mistassini,48.8229,-72.2154
+North Battleford,52.7575,-108.2861
+Pembroke,45.8167,-77.1
+Mont-Laurier,46.55,-75.5
+Strathmore,51.0378,-113.4003
+Thompson,55.7433,-97.8553
+Lavaltrie,45.8833,-73.2833
+Powell River,49.8353,-124.5247
+Mercier,45.32,-73.75
+Lacombe,52.4683,-113.7369
+Dawson Creek,55.7606,-120.2356
+Truro,45.3647,-63.28
+Amos,48.5667,-78.1167
+Winkler,49.1817,-97.9397
+Lachute,45.65,-74.3333
+Parksville,49.315,-124.312
+Cowansville,45.2,-72.75
+Becancour,46.3333,-72.4333
+Prince Rupert,54.3122,-130.3271
+Beauharnois,45.32,-73.87
+Brighton,44.1222,-77.7642
+Sidney,48.6506,-123.3986
+Brock,44.3167,-79.0833
+Montmagny,46.9833,-70.55
+Erin,43.7667,-80.0667
+Estevan,49.1392,-102.9861
+Warman,52.3219,-106.5842
+St. Clements,50.2689,-96.6742
+Saint-Amable,45.65,-73.3
+Weyburn,49.6611,-103.8525
+Williams Lake,52.1294,-122.1383
+Elliot Lake,46.3833,-82.65
+Cantley,45.5667,-75.7833
+Nelson,49.5,-117.2833
+Rawdon,46.05,-73.7167
+Campbellton,48.005,-66.6731
+View Royal,48.4517,-123.4339
+Chester,44.65,-64.3
+Queens,44.0333,-64.7167
+Selkirk,50.1436,-96.8839
+Saint-Felicien,48.65,-72.45
+Roberval,48.52,-72.23
+Sainte-Agathe-des-Monts,46.05,-74.28
+Marieville,45.4333,-73.1667
+Saint-Sauveur,45.9,-74.17
+Quesnel,52.9784,-122.4927
+Morinville,53.8022,-113.6497
+Stratford,46.2167,-63.0893
+Mont-Tremblant,46.1167,-74.6
+Martensville,52.2897,-106.6667
+Amherst,45.8167,-64.2167
+Bois-des-Filion,45.6667,-73.75
+Carignan,45.45,-73.3
+Lorraine,45.6833,-73.7833
+Oromocto,45.8488,-66.4788
+Qualicum Beach,49.35,-124.4333
+Pont-Rouge,46.75,-71.7
+Champlain,45.5333,-74.65
+Coaticook,45.1333,-71.8
+Morden,49.1919,-98.1006
+Bridgewater,44.37,-64.52
+Dauphin,51.1992,-100.0633
+Otterburn Park,45.5333,-73.2167
+Taber,49.7847,-112.1508
+Farnham,45.2833,-72.9833
+La Malbaie,47.65,-70.15
+Renfrew,45.4717,-76.6831
+Kitimat,54.0,-128.7
+Castlegar,49.3256,-117.6661
+Drumheller,51.4636,-112.7194
+Torbay,47.65,-52.7333
+Nicolet,46.2167,-72.6167
+Dryden,49.7833,-92.8333
+Iqaluit,63.7598,-68.5107
+Trail,49.095,-117.71
+Chandler,48.35,-64.6833
+Acton Vale,45.65,-72.5667
+Bromont,45.3167,-72.65
+Rigaud,45.4833,-74.3
+Louiseville,46.25,-72.95
+Chibougamau,49.9167,-74.3667
+Aylmer,42.7667,-80.9833
+Delson,45.37,-73.55
+Kimberley,49.6697,-115.9775
+Beauport,46.9667,-71.3
+Drayton Valley,53.2222,-114.9769
+Ponoka,52.6833,-113.5667
+Donnacona,46.6747,-71.7294
+Hampstead,45.4833,-73.6333
+Baie-Saint-Paul,47.45,-70.5
+Merritt,50.1128,-120.7897
+Brownsburg,45.6703,-74.4467
+Asbestos,45.7667,-71.9333
+Coteau-du-Lac,45.3,-74.18
+Peace River,56.2339,-117.2897
+Plessisville,46.2167,-71.7833
+Port-Cartier,50.0333,-66.8667
+Rocky Mountain House,52.3753,-114.9217
+Stephenville,48.55,-58.5667
+Devon,53.3633,-113.7322
+Boischatel,46.9,-71.15
+Pointe-Calumet,45.5,-73.97
+Beauceville,46.2,-70.7833
+Amqui,48.4667,-67.4333
+Mont-Joli,48.58,-68.18
+Contrecoeur,45.85,-73.2333
+Hope,49.3858,-121.4419
+Douglas,46.2819,-66.942
+Les Cedres,45.3,-74.05
+La Broquerie,49.3994,-96.5103
+Kent,49.2833,-121.75
+Bonnyville,54.2667,-110.75
+Stettler,52.3236,-112.7192
+Perth,44.9,-76.25
+Humboldt,52.2019,-105.1231
+Charlemagne,45.7167,-73.4833
+Pontiac,45.5833,-76.1333
+St. Paul,53.9928,-111.2972
+Petrolia,42.8833,-82.1417
+Vegreville,53.4928,-112.0522
+Princeville,46.1667,-71.8833
+Vercheres,45.7833,-73.35
+La Ronge,55.1,-105.3
+Saint-Philippe,45.35,-73.47
+Richelieu,45.45,-73.25
+Cookshire,45.3729,-71.672
+Windsor,45.5667,-72.0
+Creston,49.09,-116.51
+Cornwall,46.2407,-63.2009
+Meadow Lake,54.1242,-108.4358
+Sackville,45.9,-64.3667
+Cochrane,49.0667,-81.0167
+Marystown,47.1667,-55.1667
+Fernie,49.5042,-115.0628
+Woodstock,46.1522,-67.5983
+Val-David,46.03,-74.22
+Flin Flon,54.7667,-101.8778
+Hudson,45.45,-74.15
+Gananoque,44.33,-76.17
+Saint-Paul,45.9833,-73.45
+Shannon,46.8833,-71.5167
+Hearst,49.6869,-83.6544
+Sainte-Anne-de-Bellevue,45.4039,-73.9525
+Chisasibi,53.6645,-78.7938
+Chertsey,46.17,-73.92
+Armstrong,50.4483,-119.1961
+Lanoraie,45.9667,-73.2167
+Jasper,52.9013,-118.1312
+Barrhead,54.1167,-114.4
+Melville,50.9306,-102.8078
+Vanderhoof,54.0143,-124.0089
+Waterloo,45.35,-72.5167
+Neuville,46.7,-71.5833
+Hampton,45.533,-65.833
+Grand Forks,49.0333,-118.44
+La Pocatiere,47.3667,-70.0333
+Saint-Donat,46.3167,-74.2167
+Chateau-Richer,46.9667,-71.0167
+Berthierville,46.0833,-73.1833
+Vermilion,53.3542,-110.8528
+Niverville,49.6056,-97.0417
+Danville,45.7833,-72.0167
+Battleford,52.7383,-108.3153
+Saint-Jacques,45.95,-73.5667
+Sutton,45.091,-72.5792
+Carleton-sur-Mer,48.1,-66.1333
+Oka,45.47,-74.08
+Prescott,44.7167,-75.5167
+Maniwaki,46.375,-75.9667
+Morin-Heights,45.9,-74.25
+Dundas,46.3155,-64.6947
+Napierville,45.1833,-73.4
+Howick,43.9,-81.07
+Callander,46.1781,-79.4125
+New Richmond,48.1667,-65.8667
+Breslau,43.4816,-80.408
+Montague,44.9667,-75.9667
+Cumberland,49.6206,-125.0261
+Beaupre,47.05,-70.9
+Rossland,49.0786,-117.7992
+Golden,51.3019,-116.9667
+Raymond,49.4658,-112.6508
+Windsor,44.9803,-64.1292
+Westbank,49.8423,-119.6743
+Trois-Pistoles,48.12,-69.18
+Grande-Riviere,48.4,-64.5
+Malartic,48.1333,-78.1333
+Lewisporte,49.23,-55.07
+Cartier,49.9161,-97.7
+Perce,48.5333,-64.2167
+Bright,46.1205,-67.0545
+Marathon,48.75,-86.3667
+Richmond,45.6667,-72.15
+Lake Cowichan,48.8258,-124.0542
+Lorette,49.7414,-96.8761
+Portneuf,46.7,-71.8833
+Tisdale,52.85,-104.05
+Normandin,48.8333,-72.5333
+Beausejour,50.0622,-96.5161
+Dalhousie,48.1,-66.6167
+Clermont,47.6833,-70.2333
+Wellington,46.4768,-64.7478
+Degelis,47.55,-68.65
+Morris,49.3986,-97.4592
+Carman,49.4992,-98.0008
+Athabasca,54.7197,-113.2856
+Enderby,50.5508,-119.1397
+Grand Valley,43.95,-80.3667
+Senneterre,48.3833,-77.2333
+Kingston,45.4663,-66.0217
+Ascot Corner,45.45,-71.7667
+Horton,45.5,-76.6667
+Saint-Michel,45.2333,-73.5667
+Rankin Inlet,62.83,-92.1321
+Cedar,49.0853,-123.8259
+Ferme-Neuve,46.7,-75.45
+Thurso,45.5969,-75.2433
+Yamachiche,46.2667,-72.8333
+Bonaventure,48.05,-65.4833
+Wakefield,46.2406,-67.6248
+Stoke,45.5333,-71.8
+Kuujjuaq,58.1429,-68.3742
+Rougemont,45.4333,-73.05
+Lac-des-Ecorces,46.55,-75.35
+Bedford,45.1167,-72.9833
+Lacolle,45.0833,-73.3667
+Coalhurst,49.7457,-112.9319
+Markstay,46.4912,-80.4717
+Saint-Bruno,48.4667,-71.65
+Laurier-Station,46.5333,-71.6333
+Cap-Chat,49.1,-66.6833
+Ville-Marie,47.3333,-79.4333
+Rimbey,52.6333,-114.2167
+Turner Valley,50.6739,-114.2786
+Hanna,51.6383,-111.9419
+Maria,48.1667,-65.9833
+Disraeli,45.9,-71.35
+Trenton,45.6193,-62.6332
+Fermont,52.7833,-67.0833
+Esterhazy,50.65,-102.0667
+Beaverlodge,55.2094,-119.4292
+Causapscal,48.3667,-67.2333
+Brigham,45.25,-72.85
+Minnedosa,50.2453,-99.8428
+Labelle,46.2833,-74.7333
+Huntingdon,45.08,-74.17
+Hebertville,48.4,-71.6833
+Saint-Michel-des-Saints,46.6833,-73.9167
+Assiniboia,49.6167,-105.9833
+Temiscaming,46.7167,-79.1
+Magrath,49.4239,-112.8683
+Valcourt,45.5,-72.3167
+Paquetville,47.6334,-65.1803
+Lillooet,50.6864,-121.9364
+Lery,45.35,-73.8
+Outlook,51.5,-107.05
+Mitchell,49.5363,-96.7634
+Albanel,48.8833,-72.45
+Maskinonge,46.2333,-73.0167
+Lantz,44.9894,-63.4736
+Calmar,53.25,-113.7833
+Lebel-sur-Quevillon,49.05,-76.9833
+Pierreville,46.0667,-72.8167
+Kent,46.6221,-67.2953
+Saint-Bernard,46.5,-71.1333
+Papineauville,45.6167,-75.0167
+Tofield,53.3703,-112.6667
+Baker Lake,64.3287,-96.0308
+Manouane,47.2091,-74.3833
+Redwater,53.9489,-113.1067
+Caplan,48.1,-65.6833
+Allardville,47.4321,-65.4383
+Ethelbert,51.5364,-100.4981
+Grey,49.7094,-98.0736
+Gilbert Plains,51.1547,-100.4381
+Louise,49.1772,-98.8794
+Saint-Charles,46.6692,-65.0184
+Mattawa,46.3167,-78.7
+Tumbler Ridge,55.1333,-121.0
+Bow Island,49.8667,-111.3667
+Barraute,48.4333,-77.6333
+Pointe-Lebel,49.1667,-68.2
+Montague,46.1652,-62.65
+Millet,53.0978,-113.4728
+Vallee-Jonction,46.3667,-70.9167
+Manitouwadge,49.1333,-85.8333
+Wellington,43.9579,-77.3534
+Tofino,49.1275,-125.8852
+Vulcan,50.4,-113.25
+Les Escoumins,48.35,-69.4
+Riviere-Beaudette,45.2333,-74.3333
+Saint-Mathieu,45.3167,-73.5164
+Saint-Blaise-sur-Richelieu,45.2167,-73.2833
+Dalmeny,52.3411,-106.7733
+Picture Butte,49.8731,-112.78
+Victoria,47.7675,-53.2411
+Armstrong,50.64,-97.495
+La Guadeloupe,45.95,-70.93
+Burns Lake,54.2292,-125.7625
+Gore,45.77,-74.25
+Lamont,53.7603,-112.7778
+Chambord,48.4333,-72.0667
+Dudswell,45.5833,-71.5833
+Cambridge Bay,69.1528,-105.1707
+Hemmingford,45.0833,-73.5833
+Brighton,46.3316,-67.3585
+Saint-Ours,45.8833,-73.15
+Stephenville Crossing,48.5167,-58.4167
+Barriere,51.1803,-120.1261
+Fisher,51.0825,-97.6611
+Nouvelle,48.1333,-66.3167
+Yamaska,46.0236,-72.9391
+Naramata,49.5886,-119.5838
+Balmoral,47.9667,-66.45
+Price,48.6017,-68.1227
+Champlain,46.45,-72.35
+Yamaska-Est,46.0,-72.92
+Franklin Centre,45.0467,-73.9005
+Harbour Breton,47.4833,-55.8333
+Lyster,46.3667,-71.6167
+Balgonie,50.488,-104.269
+Kensington,46.4333,-63.65
+Fossambault-sur-le-Lac,46.8667,-71.6167
+Terrace Bay,48.8,-87.1
+Chapais,49.7819,-74.8544
+Florenceville,46.4435,-67.6152
+Saint-Jacques,47.5634,-68.3693
+Perth,46.7393,-67.6984
+Shawville,45.6,-76.4833
+Lambton,45.83,-71.08
+Grenville,45.6333,-74.6
+Saint-Bernard-de-Lacolle,45.0833,-73.4167
+Venise-en-Quebec,45.0833,-73.1333
+Ripon,45.7833,-75.1
+Saint-Joseph,47.558,-68.3082
+Bon Accord,53.8328,-113.4189
+Saint-Albert,46.0,-72.0833
+Matagami,49.75,-77.6333
+Amherst,46.05,-74.7667
+Victoria,49.6644,-98.9153
+Pinawa,50.1707,-95.9547
+Gold River,49.7769,-126.0514
+Tring-Jonction,46.2667,-70.9833
+Pointe-a-la-Croix,48.0167,-66.6833
+Palmarolle,48.6667,-79.2
+Henryville,45.1333,-73.1833
+Laurierville,46.3,-71.65
+La Dore,48.72,-72.65
+Lac-au-Saumon,48.4167,-67.35
+Wotton,45.7333,-71.8
+Shellbrook,53.2167,-106.4
+St. Francois Xavier,49.9903,-97.6722
+Tingwick,45.8873,-71.9244
+Frampton,46.4667,-70.8
+New Carlisle,48.0167,-65.3333
+Dawson,64.0464,-139.3893
+Nantes,45.6333,-71.0333
+Vaudreuil-sur-le-Lac,45.4,-74.0333
+Legal,53.9492,-113.595
+Les Eboulements,47.4833,-70.3167
+Pointe-aux-Outardes,49.05,-68.4333
+Telkwa,54.6972,-127.05
+Mayerthorpe,53.9503,-115.1336
+Charlo,48.0,-66.32
+Richmond,46.0776,-67.7248
+Saint-Leonard,47.1625,-67.925
+Riviere-Bleue,47.4333,-69.05
+Sorrento,50.8832,-119.4782
+Lorrainville,47.3613,-79.3382
+Gillam,56.3472,-94.7078
+Montcalm,49.1775,-97.3247
+La Minerve,46.25,-74.9333
+Vauxhall,50.0689,-112.0975
+Bassano,50.7833,-112.4667
+Parrsboro,45.3998,-64.3312
+Teulon,50.3858,-97.2611
+Peel,46.4058,-67.5278
+Bury,45.4667,-71.5
+Lac-Bouchette,48.25,-72.18
+St-Pierre-Jolys,49.4403,-96.9844
+Grand-Remous,46.6167,-75.9
+Armstrong,47.7083,-79.825
+Rogersville,46.7167,-65.4167
+Langenburg,50.8333,-101.7
+Centreville-Wareham-Trinity,48.9879,-53.9069
+Alberton,46.8167,-64.0667
+Winnipeg Beach,50.5058,-96.9742
+Salmo,49.1942,-117.2778
+Tara,44.4793,-81.1445
+Grande-Vallee,49.2167,-65.1333
+Centreville,45.13,-64.5224
+Eckville,52.3622,-114.3614
+Blanc-Sablon,51.4167,-57.1333
+Frelighsburg,45.0461,-72.8106
+Les Mechins,49.0,-66.9833
+Chipman,46.171,-65.884
+Girardville,49.0,-72.55
+Dorchester,45.9016,-64.5161
+Plaisance,45.6167,-75.1167
+Youbou,48.8562,-124.1731
+Whitecourt,54.1417,-115.6833
+Montreal-Est,45.63,-73.52
+King,44.0463,-79.6044
+Regina Beach,50.79,-104.99
+Bentley,52.4667,-114.05
+Durham,47.7631,-66.0849
+Trochu,51.8236,-113.2328
+Desbiens,48.4167,-71.95
+Souris,46.3554,-62.2542
+Melita,49.2681,-100.9958
+Delisle,51.9254,-107.1333
+Plantagenet,45.5321,-74.9956
+Davidson,51.2667,-105.9667
+Valemount,52.8284,-119.2659
+Alberta Beach,53.6767,-114.35
+Prince,46.5333,-84.5
+Baie-du-Febvre,46.13,-72.72
+Melbourne,45.58,-72.17
