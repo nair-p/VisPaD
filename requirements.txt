@@ -402,8 +402,6 @@ torchvision==0.9.1
 tornado==6.1
 tqdm==4.49.0
 traitlets==5.0.5
-# Editable install with no version control (transformers==4.5.1)
--e /home/pnair6/.local/lib/python3.8/site-packages
 truecase==0.0.14
 twilio==6.54.0
 typer==0.3.2

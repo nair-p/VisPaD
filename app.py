@@ -20,7 +20,7 @@ import numpy as np
 from plotly.subplots import make_subplots
 import plotly.figure_factory as ff
 
-from process_data import get_summary, plotlyfromjson, get_location_time_info, get_feature_weights
+from utils import get_summary, plotlyfromjson, get_location_time_info, get_feature_weights
 
 
 
@@ -40,30 +40,38 @@ hover_cols = ['Cluster Size Val','Phone Count Val', 'Loc Count Val', 'Loc Radius
 			 'Loc Radius Val','Person Name Count Val','Valid URLs Val', 'Invalid URLs Val',\
 			 'Ads/week Val', 'Num URLs Val', 'cluster_id']
 
-# read in the data files for plotting
+'''
+=========================DATA LOADING AND PRE-PROCESSING=========================
+'''
+
 # full_df = pd.read_csv("data/annoncexxx_name_infoshield.zip",index_col=False) # file name containing the cluster characteristics. 'plot_df.csv' from analyze_clusters.ipynb
 full_df = pd.read_csv("data/annoncexxx_filtered_infoshield.zip",index_col=False) # file name containing the cluster characteristics. 'plot_df.csv' from analyze_clusters.ipynb
 plot_df = pd.read_csv("data/filtered_df.csv",index_col=False)
 plot_df.set_index('cluster_id', drop=False, inplace=True)
 
-
+# building a map between micr-cluster ID (LSH label) and meta-cluster ID (Meta label)
 micro_to_meta = full_df[['LSH label', 'Meta label']].set_index('LSH label').to_dict()['Meta label']
 
-
+# add the Meta cluster ID as a column to the plotting dataframe
 plot_df['Meta Cluster ID'] = plot_df['cluster_id'].apply(lambda x: micro_to_meta[x])
 
-# DO THE SAME AS ABOVE FOR WEAK LABELS AND TRUE LABELS
+# DO THE SAME AS ABOVE FOR WEAK LABELS AND TRUE LABELS IF THEY EXIST
 
-# full_df = full_df[full_df['LSH label'] != -1]
+# choosing top ten largest micro-clusters for default display on the landing page
 top_clusters = full_df.groupby('LSH label').size().sort_values()[-10:].index.values
 largest_clusters = full_df[full_df['LSH label'].isin(top_clusters)]
-# largest_clusters = full_df[full_df['LSH label'].isin(range(50))]
 
-
+'''
+=========================CREATING THE APP=========================
+'''
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
+'''
+=========================CONTENTS OF THE 'Inspect Clusters' TAB=========================
+'''
 
 data_contents = html.Div([
+
 	html.Div([
 		html.H3(children='Ads posted over time'),
 		dcc.Graph(
@@ -71,6 +79,8 @@ data_contents = html.Div([
 			hoverData={'points': [{'customdata': 'Japan'}]}
 		)
 	], style={'width': '32%', 'float':'left','display': 'inline-block', 'padding': '0 20'}),
+
+	# meta-data over time chart 
 	html.Div([
 		dbc.DropdownMenu(
 		    label="Meta data-type", 
@@ -85,153 +95,175 @@ data_contents = html.Div([
 		html.H3(children='Meta-data over time'),
 		dcc.Graph(id='metadata_time'),
 	], style={'display': 'inline-block', 'width': '35%','float':'center'}),
+
+	# geographical spread of ads map 
 	html.Div([
 		html.H3(children='Geographical Spread of ads'),
 		dcc.Graph(id='geo_plot')], style={'width': '30%', 'float':'right'}),
+
+	# ad descriptions text box
 	html.Div([
 		html.H3(children='Ad descriptions'),
 		dcc.Textarea(id='text_box', readOnly=True,
 			style={'height':350,'width':'100%'})],style={'width':'100%', 'float':'left'})
 ])
 
-mini_dists = [0, 0.01, 0.05, 0.1, 0.5, 1]
-char_contents = html.Div([
+'''
+=========================ANALYSIS TAB CONTENTS=========================
+'''
+mini_dists = [0, 0.01, 0.05, 0.1, 0.5, 1] 
+
+char_contents = 
+
+html.Div([
+
 	html.Div(children=[
-			html.H3(children='Feature embeddings'),
 
-			dcc.Dropdown( # dropdown menu for choosing clustering method/ UMAP/ TSNE
-				id='analysis-type',
-				options=[{'label': ind, 'value': i} for i, ind in enumerate(available_indicators)],
-				value=2
-			),
-			html.Br(),
-			html.Div(
-			    [
-			        dbc.Button("Meta-Cluster Labels", id='b1', size='lg', color="primary", disabled=False, className="me-1"),
-			        dbc.Button("Weak Labels", id='b2', size='lg', color="secondary", disabled=True, className="me-1"),
-			        dbc.Button("True Labels", id='b3', size='lg', color="dark", disabled=True, className="me-1"),
-			        dbc.Tooltip("Clusters with shared meta data",placement='bottom', target='b1', style={'fontSize':20}),
-			        dbc.Tooltip("Weak labels inferred from the data",placement='bottom', target='b2', style={'fontSize':20}),
-			        dbc.Tooltip("True M.O labels of clusters",placement='bottom', target='b3', style={'fontSize':20})
-			    ], style={'float':'right'}),
-			
-			html.Br(), 
-			html.Br(),
+	# feature embedding plot
+	html.H3(children='Feature embeddings'),
 
-			dcc.Graph( # scatter plot showing the micro-clusters using method chosen above
-			id='micro-cluster-scatter',
-			responsive=True,style={'height':'40vh'}
-			),
+	dcc.Dropdown( # dropdown menu for choosing clustering method/ UMAP/ TSNE
+		id='analysis-type',
+		options=[{'label': ind, 'value': i} for i, ind in enumerate(available_indicators)],
+		value=2
+	),
+	html.Br(),
+	html.Div( # buttons for showing labels
+	    [
+	        dbc.Button("Meta-Cluster Labels", id='b1', size='lg', color="primary", disabled=False, className="me-1"),
+	        dbc.Button("Weak Labels", id='b2', size='lg', color="secondary", disabled=True, className="me-1"),
+	        dbc.Button("True Labels", id='b3', size='lg', color="dark", disabled=True, className="me-1"),
+	        dbc.Tooltip("Clusters with shared meta data",placement='bottom', target='b1', style={'fontSize':20}),
+	        dbc.Tooltip("Weak labels inferred from the data",placement='bottom', target='b2', style={'fontSize':20}),
+	        dbc.Tooltip("True M.O labels of clusters",placement='bottom', target='b3', style={'fontSize':20})
+	    ], style={'float':'right'}),
+	
+	html.Br(), 
+	html.Br(),
 
-			html.Div(id='slider-comp', children=[ # Create slides to hide/show for UMAP
-        	dcc.Slider(
-		    id='slider',
-            min=0,  max=5,
-            value=0, step=1,
-            # marks={i: '{}'.format(10 ** i) for i in mini_dists},
-            marks={str(i): {'style':{'fontSize':17},'label':str(mini_dists[i])} for i in range(len(mini_dists))},
-            updatemode='drag'
-            # tooltip={"placement": "bottom", "always_visible": True}
-            ),
-        	html.Div(id='slider-name',children=['Minimum distance'],style={'textAlign':'center', 'fontSize':20})
-            ], style= {'display': 'none'} # <-- This is the line that will be changed by the dropdown callback
-		    ),
+	dcc.Graph( # scatter plot showing the micro-clusters using method chosen above
+	id='micro-cluster-scatter',
+	responsive=True,style={'height':'40vh'}
+	),
 
-			dcc.Graph( # only for UMAP and TSNE
-			id='enlarged-graph',
-			responsive=True, style={'display':'none'}
-			)
-			], style={'width': '44%', 'display': 'inline-block', 'margin-top': '25px','margin-left':'-10px'}),
+	html.Div(id='slider-comp', children=[ # Create slides to hide/show for UMAP
+	dcc.Slider(
+    id='slider',
+    min=0,  max=5,
+    value=0, step=1,
+    marks={str(i): {'style':{'fontSize':17},'label':str(mini_dists[i])} for i in range(len(mini_dists))},
+    updatemode='drag'
+    ),
+	html.Div(id='slider-name',children=['Minimum distance'],style={'textAlign':'center', 'fontSize':20})
+    ], style= {'display': 'none'} # <-- This is the line that will be changed by the dropdown callback
+    ),
 
-	html.Div(children=[ # pair-wise scatter plot 
-			html.H3(children='Cluster Characterization'),
-			# html.Div(children="InfoShield Clusters"),
-			dcc.Dropdown( # dropdown menu for choosing clustering method/ UMAP/ TSNE
-				id='feature-type', 
-				options=[{'label': i, 'value': i} for i in dimension_cols],
-				value=None,
-				multi=True
-			),
-			dbc.Row(children=[
-				dbc.Col(dcc.RadioItems(
-				id='scale-type',
-				options=[{'label': i, 'value': i} for i in ['Log', 'Linear']],
-				value='Log',
-				labelStyle={'display': 'inline-block', 'marginTop': '6px'},
-				inputStyle={'margin-right':'5px', 'margin-left':'5px', 'margin-top':'10px'}
-				)),
+	dcc.Graph( # only for UMAP and TSNE
+	id='enlarged-graph',
+	responsive=True, style={'display':'none'}
+	)
+	], style={'width': '44%', 'display': 'inline-block', 'margin-top': '25px','margin-left':'-10px'}),
 
-				dbc.Col([
-				dbc.Button(children="Show Individual", id='hist', size='lg', color="primary", active=True, disabled=False, \
-					className="me-1", style={'display':'inline-block',\
-				'margin-top':'15px', 'margin-left':'270px'}),\
-				# dbc.Tooltip("Show/hide relevant features as decided by an ML classifier",placement='bottom',autohide=False, \
-			    # target='feats'),
-			    dbc.Tooltip("Show/hide individual feature distribution",placement='bottom',autohide=False, \
-			    target='hist', style={'fontSize':20}),
-				html.Div([html.Div(id='toggle-switch',children=['Show all points']),
-			    daq.ToggleSwitch(
-			        id='my-toggle-switch',
-			        value=False
-			    ), dbc.Tooltip("Show/hide unselected points",placement='bottom',autohide=False, \
-			    target='my-toggle-switch')], \
-			    style={'float':'right','display':'inline-block'})])
-				]
-			),
-			dcc.Graph(
-				id='hist-plot', responsive=True, style={'display':'inline-block'}),
-			dcc.Graph(
-				id='main-plot', responsive=False
-			, style={'display':'inline-block'}),
-			],style={'width': '55%', 'float': 'right', 'margin-top': '25px'}),
+
+	# pair-wise scatter plot of cluster characterization
+	html.Div(children=[  
+
+		html.H3(children='Cluster Characterization'),
+		dcc.Dropdown( # dropdown menu for choosing clustering method/ UMAP/ TSNE
+			id='feature-type', 
+			options=[{'label': i, 'value': i} for i in dimension_cols],
+			value=None,
+			multi=True
+		),
+		dbc.Row(children=[
+			dbc.Col(dcc.RadioItems( # to choose between linear and log scale
+			id='scale-type',
+			options=[{'label': i, 'value': i} for i in ['Log', 'Linear']],
+			value='Log',
+			labelStyle={'display': 'inline-block', 'marginTop': '6px'},
+			inputStyle={'margin-right':'5px', 'margin-left':'5px', 'margin-top':'10px'}
+			)),
+
+			dbc.Col([ # button for showing box plots and toggling between all and selected points
+			dbc.Button(children="Show Individual", id='hist', size='lg', color="primary", active=True, disabled=False, \
+				className="me-1", style={'display':'inline-block',\
+			'margin-top':'15px', 'margin-left':'270px'}),\
+		    dbc.Tooltip("Show/hide individual feature distribution",placement='bottom',autohide=False, \
+		    target='hist', style={'fontSize':20}),
+			html.Div([html.Div(id='toggle-switch',children=['Show all points']),
+		    daq.ToggleSwitch(
+		        id='my-toggle-switch',
+		        value=False
+		    ), dbc.Tooltip("Show/hide unselected points",placement='bottom',autohide=False, \
+		    target='my-toggle-switch')], \
+		    style={'float':'right','display':'inline-block'})])
+			]
+		),
+		# box-plot
+		dcc.Graph(
+			id='hist-plot', responsive=True, style={'display':'inline-block'}),
+		# main pair-plot
+		dcc.Graph(
+			id='main-plot', responsive=False
+		, style={'display':'inline-block'}),
+		],style={'width': '55%', 'float': 'right', 'margin-top': '25px'}),
 
 	], style={"height":"100vh"})
 
-# layout of the app
-app.layout = dbc.Container(
-	[
-		# dcc.Store(id="store"),
-		html.Div([
-		html.H2("VisPaD: Tool for Visualization and Pattern Discovery"),
+'''
+=========================LAYOUT OF THE APP=========================
+'''
+app.layout = 
 
-		dbc.Row(children=
-				[
-				dbc.Col(html.Div(id="meta_clusters_n")),
-				dbc.Col(html.Div(id="micro_clusters_n")),
-                dbc.Col(html.Div(id="ads_n")),
-                dbc.Col(html.Div(id="phone_n")),
-                dbc.Col(html.Div(id="img_url_n")),
-                dbc.Col(html.Div(id="location_n")),
-                dbc.Col(html.Div(id="name_n"))
-				], align='center', style={'margin-top':'10px', 'fontSize':25}
-			),
-		dbc.Row(children=
-				[
-				dbc.Col(html.Div(id="meta_clusters")),
-				dbc.Col(html.Div(id="micro_clusters")),
-                dbc.Col(html.Div(id="ads")),
-                dbc.Col(html.Div(id="phone")),
-                dbc.Col(html.Div(id="img_url")),
-                dbc.Col(html.Div(id="location")),
-                dbc.Col(html.Div(id="name")),
-				], align='center'
-				, style={'margin-top':'-2px', 'fontSize':20}
-			)], style={'textAlign': 'center','backgroundColor': 'blue', \
-			'color':'white','height':'120px'}
-		),		
-		# html.Div([ # top row header
-		html.Br(),
-		# ]),
-		dbc.Tabs(
+dbc.Container([
+
+	# title
+	html.Div([
+	html.H2("VisPaD: Tool for Visualization and Pattern Discovery"),
+
+	# top banner for names of the summary information
+	dbc.Row(children=
 			[
-				dbc.Tab(data_contents, label="Inspect Clusters", label_style={'fontSize':20,}, tab_id="data", style={'fontSize':20}),
-				dbc.Tab(char_contents, label="Analysis", label_style={'fontSize':20}, tab_id="scatter", style={'fontSize':20})
-			],
-			id="tabs",
-			active_tab="data"
+			dbc.Col(html.Div(id="meta_clusters_n")),
+			dbc.Col(html.Div(id="micro_clusters_n")),
+            dbc.Col(html.Div(id="ads_n")),
+            dbc.Col(html.Div(id="phone_n")),
+            dbc.Col(html.Div(id="img_url_n")),
+            dbc.Col(html.Div(id="location_n")),
+            dbc.Col(html.Div(id="name_n"))
+			], align='center', style={'margin-top':'10px', 'fontSize':25}
 		),
-		visdcc.Run_js(id = 'javascriptLog', run = ""),
-		# html.Div(id="tab-content", className="p-4"),
+
+	# top banner for values of the summary information
+	dbc.Row(children=
+			[
+			dbc.Col(html.Div(id="meta_clusters")),
+			dbc.Col(html.Div(id="micro_clusters")),
+            dbc.Col(html.Div(id="ads")),
+            dbc.Col(html.Div(id="phone")),
+            dbc.Col(html.Div(id="img_url")),
+            dbc.Col(html.Div(id="location")),
+            dbc.Col(html.Div(id="name")),
+			], align='center'
+			, style={'margin-top':'-2px', 'fontSize':20}
+		)], style={'textAlign': 'center','backgroundColor': 'blue', \
+		'color':'white','height':'120px'}
+	),	
+
+	html.Br(),
+
+	# the two main tabs
+	dbc.Tabs(
+		[
+			dbc.Tab(data_contents, label="Inspect Clusters", label_style={'fontSize':20,}, tab_id="data", style={'fontSize':20}),
+			dbc.Tab(char_contents, label="Analysis", label_style={'fontSize':20}, tab_id="scatter", style={'fontSize':20})
+		],
+		id="tabs",
+		active_tab="data"
+	),
+
+	# tiny javascript code to include a scrollbar in the text box area
+	visdcc.Run_js(id = 'javascriptLog', run = ""),
 	], fluid=True, style={'width':'100%'})
 
 
@@ -390,7 +422,7 @@ def update_ads_over_time(active_tab, selectedData, selected_from_pair_plots, sel
 	fig.update_yaxes(autorange='reversed')
 
 	fig.update_layout(
-		font_size=20,
+		# font_size=20,
 		xaxis = dict(
 			tickmode='array',
 			ticktext=ads_timeline['start_date'],
@@ -428,7 +460,6 @@ def update_meta_data(active_tab, selectedData, selected_from_pair_plots, selecte
 			for item in selectedData['points']:
 				selected_points.append(item['customdata'][-1])
 
-			# selected_df = full_df.loc[selected_points]
 			selected_df = full_df[full_df['LSH label'].isin(selected_points)]
 		
 		elif selected_from_pair_plots:  
@@ -436,14 +467,13 @@ def update_meta_data(active_tab, selectedData, selected_from_pair_plots, selecte
 			for item in selected_from_pair_plots['points']:
 				selected_points.append(item['customdata'][-1])
 
-			# selected_df = full_df.loc[selected_points]
 			selected_df = full_df[full_df['LSH label'].isin(selected_points)]			
 		
 		elif selected_from_ica:
 			selected_points = []
 			for item in selected_from_ica['points']:
 				selected_points.append(item['customdata'][-1])
-			# selected_df = full_df.loc[selected_points]
+
 			selected_df = full_df[full_df['LSH label'].isin(selected_points)]
 
 		else:
@@ -528,7 +558,7 @@ def update_meta_data(active_tab, selectedData, selected_from_pair_plots, selecte
 				color='Meta Cluster ID', size='Count', color_discrete_sequence=px.colors.qualitative.Vivid)
 		
 		fig.update_layout(
-			font_size=20,
+			# font_size=20,
 			yaxis = dict(
 				tickmode='array',
 				ticktext=plot_data['Micro Cluster ID'],
@@ -558,7 +588,6 @@ def update_meta_data(active_tab, selectedData, selected_from_pair_plots, selecte
 			for item in selectedData['points']:
 				selected_points.append(item['customdata'][-1])
 
-			# selected_df = full_df.loc[selected_points]
 			selected_df = full_df[full_df['LSH label'].isin(selected_points)]
 		
 		elif selected_from_pair_plots:  
@@ -566,7 +595,6 @@ def update_meta_data(active_tab, selectedData, selected_from_pair_plots, selecte
 			for item in selected_from_pair_plots['points']:
 				selected_points.append(item['customdata'][-1])
 
-			# selected_df = full_df.loc[selected_points]
 			selected_df = full_df[full_df['LSH label'].isin(selected_points)]
 		
 		elif selected_from_ica:
@@ -574,7 +602,6 @@ def update_meta_data(active_tab, selectedData, selected_from_pair_plots, selecte
 			for item in selected_from_ica['points']:
 				selected_points.append(item['customdata'][-1])
 
-			# selected_df = full_df.loc[selected_points]
 			selected_df = full_df[full_df['LSH label'].isin(selected_points)]
 
 		else:
@@ -593,9 +620,7 @@ def update_meta_data(active_tab, selectedData, selected_from_pair_plots, selecte
 		ads_per_location_time_df = get_location_time_info(selected_df, cities_df)
 		ads_per_location_time_df['Meta Cluster ID'] = 'M'+ads_per_location_time_df['Meta Cluster ID'].astype('str')
 		ads_per_location_time_df.sort_values(by='date',inplace=True)
-		# print(ads_per_location_time_df[ads_per_location_time_df['Meta Cluster ID'].isin(['0','1','2','5'])])
-		# ads_per_location_time_df = ads_per_location_time_df[ads_per_location_time_df['Meta Cluster ID'].isin(['0','1','2','5'])]
-
+		
 		try:
 			fig = px.scatter_geo(ads_per_location_time_df, lat='lat',lon='lon', 
                      hover_name="plot_text", size='plot_counts', hover_data={'date':False,'plot_counts':False, \
@@ -609,7 +634,6 @@ def update_meta_data(active_tab, selectedData, selected_from_pair_plots, selecte
                      animation_frame="date", scope='north america', color='Meta Cluster ID', \
                      color_discrete_sequence=px.colors.qualitative.Vivid)
 
-		fig.update_layout(font_size=20)
 		return fig
 
 
@@ -646,7 +670,7 @@ def update_ad_text(active_tab, selectedData, selected_from_pair_plots):
 
 
 	txts = ""
-	# for grp in sel_data.groupby('LSH label'):
+
 	for row in ordered_clusters.index:
 		txts += "\n\nCluster : C" + str(row) + "\n"
 		grp = sel_data[sel_data['LSH label']==row]
@@ -692,20 +716,19 @@ def update_graph(selected_clustering, clickData, selectedData, mini_dist_ind, b1
 		df = pd.read_csv("data/is_ica.zip",index_col=False) #CHANGE THE DATA FILES ACCORDINGLY
 		df.set_index('cluster_id',drop=False,inplace=True)
 		df[color_label] = 'M'+df['cluster_id'].apply(lambda x: color_dict[x]).astype('str')
+
 		if color_label != 'Color':
 			fig = px.scatter(df, x='x',y='y', hover_data=hover_cols, height=1600, \
 			color=color_label, color_discrete_sequence=px.colors.qualitative.Vivid)
 		else:
 			fig = px.scatter(df, x='x',y='y', hover_data=hover_cols, height=1600, \
 			color=color_label)
+
 		fig.update_traces(marker=dict(size=3), showlegend=show_color_bar)
-		fig.update_layout(dragmode='lasso', font_size=20)
+		fig.update_layout(dragmode='lasso')
 
 	elif selected_clustering == 1: # TSNE
-		# fig = plotlyfromjson("data/tsne_plot.json")
-		# fig.update_traces(marker=dict(size=3))
 		tsne_res = pkl.load(open("data/all_tsne_res.pkl",'rb')) # Since we are looking at multiple parameter values
-		# # df = pd.read_csv("data/is_tsne.zip",index_col=False)
 		perp_vals = list(tsne_res.keys())
 		titles = []
 		for p in perp_vals:
@@ -715,7 +738,6 @@ def update_graph(selected_clustering, clickData, selectedData, mini_dist_ind, b1
 					subplot_titles=tuple(titles), \
 					horizontal_spacing=0.01, vertical_spacing=0.01, \
 					shared_xaxes=True, shared_yaxes=True, \
-					# title_text='Perplexity Values'
 			)
 
 		template_str = ""
@@ -730,7 +752,6 @@ def update_graph(selected_clustering, clickData, selectedData, mini_dist_ind, b1
 			fig.add_scatter(x=list(dd.x), y=list(dd.y), \
 								customdata=dd[hover_cols], \
 								hovertemplate=template_str,\
-								# marker_color=dd[color_label], \
 								mode='markers', marker={'opacity':0.3, 'color':'blue', 'size':3}, \
 								row=1, col=i+1)
 				
@@ -738,12 +759,12 @@ def update_graph(selected_clustering, clickData, selectedData, mini_dist_ind, b1
 				fig.layout.annotations[i].update(text=str(p))
 
 		fig.update_layout(height=350, width=650, dragmode="lasso", showlegend=False,\
-		font_size=20, title_text='Perplexity Values')
-		# fig.update_layout(height=1600, width=1000, showlegend=False)
+		title_text='Perplexity Values')
+
 
 	elif selected_clustering == 2: # UMAP
 		umap_res = pkl.load(open("data/umap_res.pkl",'rb')) # with multiple parameter values 
-		# df = pd.read_csv("data/is_umap.zip",index_col=False)	
+
 		nbr_sizes = [10, 50, 100, 200, 500, 1000]
 		mini_dists = [0, 0.01, 0.05, 0.1, 0.5, 1]
 
@@ -761,11 +782,9 @@ def update_graph(selected_clustering, clickData, selectedData, mini_dist_ind, b1
 		
 		fig = make_subplots(rows=1, cols=len(nbr_sizes), \
 				subplot_titles=tuple(titles[:6]), \
-				# horizontal_spacing=0.02, vertical_spacing=0.05, \
 				shared_xaxes=True, shared_yaxes=True, \
 				)
 
-		# mini_dist_ind = 2
 		for i in range(len(nbr_sizes)):
 			dd = umap_res[i][mini_dist_ind]
 			fig.add_scatter(x=list(dd.x), y=list(dd.y), \
@@ -775,7 +794,7 @@ def update_graph(selected_clustering, clickData, selectedData, mini_dist_ind, b1
 								mode='markers', marker={'opacity':0.3, 'color':'blue', 'size':3}, \
 								row=1, col=i+1)
 
-		fig.update_layout(title_text="Nbrhood Size",height=350, width=700, showlegend=False, font_size=20)
+		fig.update_layout(title_text="Nbrhood Size",height=350, width=700, showlegend=False)
 		
 
 	if clickData:
@@ -803,7 +822,6 @@ def update_graph(selected_clustering, clickData, selectedData, mini_dist_ind, b1
 			if selected_clustering == 2:
 				umap_res = pkl.load(open("data/umap_res.pkl",'rb'))
 				nbr_sizes = [10, 50, 100, 200, 500, 1000]
-				# mini_dists = [0, 0.01, 0.05, 0.1, 0.5, 1]
 
 				template_str = ""
 				for i, col in enumerate(hover_cols):
@@ -821,7 +839,7 @@ def update_graph(selected_clustering, clickData, selectedData, mini_dist_ind, b1
 										mode='markers', marker={'symbol':'star', 'color': 'red','size':10}, \
 										row=1, col=i+1)
 
-				fig.update_layout(height=350, width=700, showlegend=False, font_size=20)
+				fig.update_layout(height=350, width=700, showlegend=False)
 	
 
 	if selectedData:
@@ -867,7 +885,7 @@ def update_graph(selected_clustering, clickData, selectedData, mini_dist_ind, b1
 										mode='markers', marker={'color': 'black','size':3}, \
 										row=1, col=i+1)
 
-				fig.update_layout(height=350, width=700, showlegend=False, font_size=20)
+				fig.update_layout(height=350, width=700, showlegend=False)
 
 	return fig
 	
@@ -931,7 +949,7 @@ def enlarge_subplot(selected_clustering, clickData, selectedData, mini_dist_ind,
 			else:
 				fig = px.scatter(dd, x='x',y='y', hover_data=hover_cols, color=color_label, color_discrete_sequence=px.colors.qualitative.Vivid)
 		fig.update_traces(showlegend=show_color_bar)
-		fig.update_layout(font_size=20)
+
 		return {'display':'none'}, fig
 
 	if clickData: # clicking has happened
@@ -962,7 +980,7 @@ def enlarge_subplot(selected_clustering, clickData, selectedData, mini_dist_ind,
 			color_discrete_sequence=px.colors.qualitative.Vivid)
 		else:
 			fig = px.scatter(dd, x='x',y='y', hover_data=hover_cols, color=color_label)
-		fig.update_layout(width=1000, title_text=title, dragmode='lasso', font_size=20)
+		fig.update_layout(width=1000, title_text=title, dragmode='lasso')
 		fig.update_traces(marker=dict(size=3), showlegend=show_color_bar)
 
 		if selectedData: # some points in main plot have been selected
@@ -974,7 +992,6 @@ def enlarge_subplot(selected_clustering, clickData, selectedData, mini_dist_ind,
 				px.scatter(dd.loc[selected_points], \
 								  x='x',y='y', hover_data=hover_cols).update_traces(marker_color="cyan",marker_size=4,marker_symbol='star').data
 			)
-			fig.update_layout(font_size=20)
 		return {'display': 'inline-block','margin-left':'40px'}, fig
 
 	
@@ -1043,7 +1060,7 @@ def highlight_same_clusters(clickData, selected_clusters, selected_feats, scale,
 			to_plot = plot_df.copy()
 		else:
 			to_plot = plot_df.loc[selected_points]
-			# print(full_df.columns)
+
 			classifier_df = plot_df.copy()
 			classifier_df['Y'] = np.zeros(len(plot_df))
 			classifier_df['Y'].loc[selected_points] = 1
@@ -1073,8 +1090,8 @@ def highlight_same_clusters(clickData, selected_clusters, selected_feats, scale,
 			fig.layout.font.size = 10
 			fig.update_layout(height=2600,width=2600, dragmode='lasso')
 		else:
-			fig.update_layout(height=500,width=1000, dragmode='lasso', font_size=20)
-		# highlight the current clicked point across all pair-plots in red
+			fig.update_layout(height=500,width=1000, dragmode='lasso')
+		# highlight the current clicked point across all pair-plots in cyan
 		fig.add_traces(
 		px.scatter_matrix(to_plot[to_plot.cluster_id==cluster_id], \
 					  dimensions=selected_feats, labels=labels).update_traces(marker_color="cyan").data
@@ -1084,7 +1101,7 @@ def highlight_same_clusters(clickData, selected_clusters, selected_feats, scale,
 			fig.layout.font.size = 10
 			fig.update_layout(height=1000,width=1000, dragmode='lasso')
 		else:
-			fig.update_layout(height=500,width=1000, dragmode='lasso', font_size=20)
+			fig.update_layout(height=500,width=1000, dragmode='lasso')
 	else: 
 		try:
 			fig = px.scatter_matrix(to_plot, dimensions=selected_feats,opacity=0.6,\
@@ -1096,7 +1113,7 @@ def highlight_same_clusters(clickData, selected_clusters, selected_feats, scale,
 		if len(selected_feats) > 4:
 			fig.update_layout({ax:{"tickmode":"array","tickvals":[]} for ax in fig.to_dict()["layout"] if "axis" in ax})			
 			fig.update_layout(height=1000,width=1000, dragmode='lasso')
-			print(fig.layout)
+
 		else:
 			fig.update_layout(height=500,width=1000, dragmode='lasso', font_size=17)
 		
@@ -1159,7 +1176,6 @@ def display_histogram(feature_values, selected_from_pair_plots, pair_plot, selec
 		to_plot = to_plot.loc[selected_points]
 
 		fig = px.box(to_plot)
-		fig.update_layout(font_size=20)
 		
 		return {'display':'None'}, {'display':'block'}, fig, "Show Pair-Plots"
 	else:
@@ -1168,4 +1184,4 @@ def display_histogram(feature_values, selected_from_pair_plots, pair_plot, selec
 
 
 if __name__ == '__main__':
-	app.run_server(debug=True, port=8801)
+	app.run_server(debug=True, port=8805)

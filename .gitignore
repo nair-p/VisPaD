@@ -1,3 +1,10 @@
+# Figs and stuff related to paper
+fig/*
+
+# data files
+data/filtered_df.csv
+data/annoncexxx_filtered_infoshield.zip
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

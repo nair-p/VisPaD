@@ -15,18 +15,12 @@ After installing virtualenv, create a virtual env for the app by running
 python -m venv vispad_env
 ```
 
-After creating a virtual env, activate it by running
+If you have a virutal env or after creating one, activate it by running
 ```
 source vispad_env/bin/activate
 ```
 
 Once the virtual env has been activated, the necessary packages can be installed within that environment.
-
-When you're done using the app, the virtual env can be deactivated by running
-```
-deactivate
-```
-
 
 ## Install necessary libraries:
 
@@ -38,7 +32,7 @@ pip install -r requirements.txt
 
 # Usage:
 
-Some of the required data files are included. Data that contains person identifying information cannot be shared publicly but can be made available on request after agreeing to the terms of sharing. Please reach out to pratheeksha.nair@mail.mcgill.ca for dataset access. 
+Some of the required data files are included. Data that contains person identifying information cannot be shared publicly but can be made available on request after agreeing to the terms of sharing. Please reach out by sending an email to [this address](pratheeksha.nair@mail.mcgill.ca) for dataset access. 
 
 ## VisPaD tool
 ```
@@ -59,7 +53,14 @@ In the `Inspect Clusters` tab you see,
 In the `Analysis` tab you see,
 
 1. Feature embeddings of the micro-cluster. You can choose between ICA (Independent Component Analysis), t-SNE and UMAP which are all dimensionality reduction techniques, for plotting the 9 dimensional micro-cluster feature vectors in 2 dimensions in a meaningful way. Each point on the plot represents a micro-cluster in the data and on hovering on a point, you can see its feature values.
-2. 
-3.  
+2. If you choose t-SNE/UMAP, it displays the plots for different values of the respective parameters and clicking on one of the sub-plots enlarges it for a better view.
+3. The `Meta-Cluster Labels` button indicates by color, which micro-clusters belong to the same meta-cluster. Interesting groups of micro-clusters can be selected using the mouse pointer for further analysis.
+4. On making a selection, the pair-plots on the right get updated to show you the 4 features that are most relevant to the selected micro-clusters. You can also look at the box-plot distribution of the individual feautres by clicking on the `Show Individual` button. You can also toggle between showing only selected points and all the points.
+5. On making a selection, the top summary panel also gets updated to reflect the selected points and on going back to the `Inspect Clusters` tab, you can see the updated information for those micro-clusters. 
 
+## Deactivate your virtual environment
 
+When you're done using the app, the virtual env can be deactivated by running
+```
+deactivate
+```

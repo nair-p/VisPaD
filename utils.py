@@ -59,6 +59,15 @@ def plotlyfromjson(fpath):
 
 
 def get_location_time_info(df, geoloc_info):
+	'''
+	count ranges:
+	0-99 : Category 1
+	100-499: Category 2
+	500-999: Category 3
+	1000-5000: Cateogry 4
+	> 5000: Category 5
+
+	'''
 
 	ads_per_location_time_df = pd.DataFrame(columns=['date','lat','lon','count','location','meta_label'])
 	lats = []
@@ -85,7 +94,16 @@ def get_location_time_info(df, geoloc_info):
 		            lons.append(geo['lng'])
 		        cnt = grp[grp.cleaned_loc==city].ad_id.count()
 		        counts.append(cnt)
-		        plot_counts.append(1000*cnt)
+		        if cnt <= 99:
+		        	plot_counts.append(5000)
+		        elif cnt <= 499:
+		        	plot_counts.append(10000)
+		        elif cnt <= 999:
+		        	plot_counts.append(20000)
+		        elif cnt <= 4999:
+		        	plot_counts.append(50000)
+		        else:
+		        	plot_counts.append(90000)
 		        locations.append(city)
 		        plot_txt.append(city)
 		
