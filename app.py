@@ -113,9 +113,7 @@ data_contents = html.Div([
 '''
 mini_dists = [0, 0.01, 0.05, 0.1, 0.5, 1] 
 
-char_contents = 
-
-html.Div([
+char_contents = html.Div([
 
 	html.Div(children=[
 
@@ -213,9 +211,7 @@ html.Div([
 '''
 =========================LAYOUT OF THE APP=========================
 '''
-app.layout = 
-
-dbc.Container([
+app.layout = dbc.Container([
 
 	# title
 	html.Div([

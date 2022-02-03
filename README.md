@@ -32,7 +32,7 @@ pip install -r requirements.txt
 
 # Usage:
 
-Some of the required data files are included. Data that contains person identifying information cannot be shared publicly but can be made available on request after agreeing to the terms of sharing. Please reach out by sending an email to [this address](pratheeksha.nair@mail.mcgill.ca) for dataset access. 
+Some of the required data files are included. Data that contains person identifying information cannot be shared publicly but can be made available on request after agreeing to the terms of sharing. Please reach out by sending an email to [this address](mailto:pratheeksha.nair@mail.mcgill.ca) for dataset access. 
 
 ## VisPaD tool
 ```
