@@ -254,7 +254,7 @@ patsy==0.5.2
 pexpect==4.6.0
 phonetics==1.0.5
 pickleshare==0.7.5
-Pillow==8.1.2
+Pillow==9.0.0
 plotly==5.5.0
 plotly-express==0.4.1
 pluggy==1.0.0.dev0
