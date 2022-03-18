@@ -44,13 +44,15 @@ hover_cols = ['Cluster Size Val','Phone Count Val', 'Loc Count Val', 'Loc Radius
 =========================DATA LOADING AND PRE-PROCESSING=========================
 '''
 
-# full_df = pd.read_csv("data/annoncexxx_name_infoshield.zip",index_col=False) # file name containing the cluster characteristics. 'plot_df.csv' from analyze_clusters.ipynb
-full_df = pd.read_csv("data/annoncexxx_filtered_infoshield.zip",index_col=False) # file name containing the cluster characteristics. 'plot_df.csv' from analyze_clusters.ipynb
-plot_df = pd.read_csv("data/filtered_df.csv",index_col=False)
+full_df = pd.read_csv("synthetic_data/synthetic_data_changed.csv",index_col=False) # file name containing the cluster characteristics. 'plot_df.csv' from analyze_clusters.ipynb
+plot_df = pd.read_csv("synthetic_data/plot_df.csv",index_col=False)
 plot_df.set_index('cluster_id', drop=False, inplace=True)
-
+# full_df['LSH label'] = full_df['LSH label original'].copy()
+full_df = full_df[full_df['LSH label']!=-1]
+full_df['MO Label'] = full_df['label'].copy()
 # building a map between micr-cluster ID (LSH label) and meta-cluster ID (Meta label)
 micro_to_meta = full_df[['LSH label', 'Meta label']].set_index('LSH label').to_dict()['Meta label']
+micro_to_true = full_df[['LSH label', 'label']].set_index('LSH label').to_dict()['label']
 
 # add the Meta cluster ID as a column to the plotting dataframe
 plot_df['Meta Cluster ID'] = plot_df['cluster_id'].apply(lambda x: micro_to_meta[x])
@@ -88,8 +90,8 @@ data_contents = html.Div([
 		    children=[
 		        dbc.DropdownMenuItem("Cluster Size", id='Cluster Size'),
 		        dbc.DropdownMenuItem("Phone Number", id='Phone Number'),
-		        dbc.DropdownMenuItem("Img URL", id='Img URL'),
-		        dbc.DropdownMenuItem("Name", id='Name'),
+		        # dbc.DropdownMenuItem("Img URL", id='Img URL'),
+		        # dbc.DropdownMenuItem("Name", id='Name'),
 		    ], style={'float':'right','margin-top':'5px'}
 		),
 		html.H3(children='Meta-data over time'),
@@ -130,7 +132,7 @@ char_contents = html.Div([
 	    [
 	        dbc.Button("Meta-Cluster Labels", id='b1', size='lg', color="primary", disabled=False, className="me-1"),
 	        dbc.Button("Weak Labels", id='b2', size='lg', color="secondary", disabled=True, className="me-1"),
-	        dbc.Button("True Labels", id='b3', size='lg', color="dark", disabled=True, className="me-1"),
+	        dbc.Button("True Labels", id='b3', size='lg', color="dark", disabled=False, className="me-1"),
 	        dbc.Tooltip("Clusters with shared meta data",placement='bottom', target='b1', style={'fontSize':20}),
 	        dbc.Tooltip("Weak labels inferred from the data",placement='bottom', target='b2', style={'fontSize':20}),
 	        dbc.Tooltip("True M.O labels of clusters",placement='bottom', target='b3', style={'fontSize':20})
@@ -224,9 +226,9 @@ app.layout = dbc.Container([
 			dbc.Col(html.Div(id="micro_clusters_n")),
             dbc.Col(html.Div(id="ads_n")),
             dbc.Col(html.Div(id="phone_n")),
-            dbc.Col(html.Div(id="img_url_n")),
+            # dbc.Col(html.Div(id="img_url_n")),
             dbc.Col(html.Div(id="location_n")),
-            dbc.Col(html.Div(id="name_n"))
+            # dbc.Col(html.Div(id="name_n"))
 			], align='center', style={'margin-top':'10px', 'fontSize':25}
 		),
 
@@ -237,9 +239,9 @@ app.layout = dbc.Container([
 			dbc.Col(html.Div(id="micro_clusters")),
             dbc.Col(html.Div(id="ads")),
             dbc.Col(html.Div(id="phone")),
-            dbc.Col(html.Div(id="img_url")),
+            # dbc.Col(html.Div(id="img_url")),
             dbc.Col(html.Div(id="location")),
-            dbc.Col(html.Div(id="name")),
+            # dbc.Col(html.Div(id="name")),
 			], align='center'
 			, style={'margin-top':'-2px', 'fontSize':20}
 		)], style={'textAlign': 'center','backgroundColor': 'blue', \
@@ -271,12 +273,12 @@ Output('meta_clusters_n', 'children'),
 Output('micro_clusters_n', 'children'),
 Output('ads_n', 'children'),
 Output('phone_n', 'children'),
-Output('img_url_n', 'children'),
+# Output('img_url_n', 'children'),
 Output('location_n', 'children'),
-Output('name_n', 'children'),
+# Output('name_n', 'children'),
 Input('tabs','active_tab')) # input: currently active tab
 def update_summary_heads(active_tab):
-	return "Meta-clusters", "Micro-clusters", "Ads", "Phone Numbers", "Img URLs", "Locations", "Names"
+	return "Meta-clusters", "Micro-clusters", "Ads", "Phone Numbers", "Locations"
 
 
 
@@ -285,9 +287,9 @@ Output('meta_clusters', 'children'),
 Output('micro_clusters', 'children'),
 Output('ads', 'children'),
 Output('phone', 'children'),
-Output('img_url', 'children'),
+# Output('img_url', 'children'),
 Output('location', 'children'),
-Output('name', 'children'),
+# Output('name', 'children'),
 Input('enlarged-graph', 'selectedData'), # input: selected points from the enlarged scatter-plot (TSNE/UMAP)
 Input('main-plot', 'selectedData'), # input: selected points from the pair-plots
 Input('micro-cluster-scatter', 'selectedData')) # input: selected points from the feature embedding plot
@@ -319,19 +321,19 @@ def update_summary(selectedData, selected_from_pair_plots, selected_from_ica):
 	num_meta = selected_df['Meta label'].nunique()
 	num_clusters = selected_df['LSH label'].nunique()
 	num_ads = len(selected_df)
-	num_names = selected_df.name.count()
-	num_unique_names = selected_df.phone_num.nunique()
-	num_imgs = selected_df.img_urls.count()
-	num_unique_imgs = selected_df.img_urls.nunique()
+	# num_names = selected_df.name.count()
+	# num_unique_names = selected_df.phone_num.nunique()
+	# num_imgs = selected_df.img_urls.count()
+	# num_unique_imgs = selected_df.img_urls.nunique()
 	num_phones = selected_df.phone_num.count()
 	num_unique_phones = selected_df.phone_num.nunique()
-	num_locs = selected_df.cleaned_loc.count()
-	num_unique_locs = selected_df.cleaned_loc.nunique()
+	num_locs = selected_df.location.count()
+	num_unique_locs = selected_df.location.nunique()
 
 
 	return str(num_meta), str(num_clusters), str(num_ads), str(num_phones)+" ("+str(num_unique_phones)+")", \
-	str(num_imgs)+" ("+str(num_unique_imgs)+")", str(num_locs)+" ("+str(num_unique_locs)+")", \
-	str(num_names)+" ("+str(num_unique_names)+")"
+	str(num_locs)+" ("+str(num_unique_locs)+")"
+	# str(num_names)+" ("+str(num_unique_names)+")"
 
 
 
@@ -443,11 +445,11 @@ Input('enlarged-graph', 'selectedData'), # input: selected points from the enlar
 Input('main-plot', 'selectedData'), # input: selected points from the pair-plots
 Input('micro-cluster-scatter', 'selectedData'),
 Input('Cluster Size', 'n_clicks'),
-Input('Phone Number', 'n_clicks'),
-Input('Img URL', 'n_clicks'),
-Input('Name', 'n_clicks')) 
+Input('Phone Number', 'n_clicks'))
+# Input('Img URL', 'n_clicks'),
+# Input('Name', 'n_clicks')) 
 def update_meta_data(active_tab, selectedData, selected_from_pair_plots, selected_from_ica, \
-	clus_size, phone_num, img_url, name):
+	clus_size, phone_num):
 	if active_tab != 'data':
 		return px.scatter([])
 	else:
@@ -503,18 +505,18 @@ def update_meta_data(active_tab, selectedData, selected_from_pair_plots, selecte
 					meta_data_types.append("Phone Number")
 
 					# for img urls
-					dates.append(grp[0].strftime('%Y-%m-%d'))
-					counts.append(grp[1].img_urls.nunique())
-					micro_cluster_ids.append(str(micro_id))
-					meta_cluster_ids.append(str(meta_id))
-					meta_data_types.append("Img URL")
+					# dates.append(grp[0].strftime('%Y-%m-%d'))
+					# counts.append(grp[1].img_urls.nunique())
+					# micro_cluster_ids.append(str(micro_id))
+					# meta_cluster_ids.append(str(meta_id))
+					# meta_data_types.append("Img URL")
 
 					# for names
-					dates.append(grp[0].strftime('%Y-%m-%d'))
-					counts.append(grp[1].name.nunique())
-					micro_cluster_ids.append(str(micro_id))
-					meta_cluster_ids.append(str(meta_id))
-					meta_data_types.append("Name")
+					# dates.append(grp[0].strftime('%Y-%m-%d'))
+					# counts.append(grp[1].name.nunique())
+					# micro_cluster_ids.append(str(micro_id))
+					# meta_cluster_ids.append(str(meta_id))
+					# meta_data_types.append("Name")
 
 					# for cluster sizes
 					dates.append(grp[0].strftime('%Y-%m-%d'))
@@ -578,7 +580,7 @@ def update_meta_data(active_tab, selectedData, selected_from_pair_plots, selecte
 	if active_tab != 'data':
 		return px.scatter([])
 	else:
-		cities_df = pd.read_csv("data/geoloc_info.csv",index_col='city_ascii')
+		cities_df = pd.read_csv("synthetic_data/cities.csv")
 		if selectedData:
 			selected_points = [] # the selection info is in JSON format and we need to extract the index of points selected
 			for item in selectedData['points']:
@@ -606,10 +608,10 @@ def update_meta_data(active_tab, selectedData, selected_from_pair_plots, selecte
 		top_clusters = selected_df.groupby('LSH label').size().sort_values()[-10:].index.values
 		selected_df = selected_df[selected_df['LSH label'].isin(top_clusters)]
 		
-		selected_df = pd.merge(selected_df, cities_df, left_on='cleaned_loc', right_on='city_ascii', left_index=True, \
-			how='left', sort=False)
+		# selected_df = pd.merge(selected_df, cities_df, left_on='location', right_on='name', \
+			# how='left', sort=False)
 
-		selected_df['post_date'] = pd.to_datetime(selected_df.post_date, format='%Y-%m-%d')
+		selected_df['post_date'] = pd.to_datetime(selected_df.post_date, infer_datetime_format=True)
 		selected_df['year-month'] = selected_df['post_date'].apply(lambda x: str(x.year) + ' ' + str(x.month))
 		
 
@@ -670,7 +672,8 @@ def update_ad_text(active_tab, selectedData, selected_from_pair_plots):
 	for row in ordered_clusters.index:
 		txts += "\n\nCluster : C" + str(row) + "\n"
 		grp = sel_data[sel_data['LSH label']==row]
-		txts += ("\n".join(d for d in grp.description.values))
+		txts += ("\n\n".join(d for d in grp.description.values))
+		txts += "--------------------------------------\n"
 
 	return txts, ad_text
 
@@ -702,6 +705,7 @@ def update_graph(selected_clustering, clickData, selectedData, mini_dist_ind, b1
 	elif b3_click and b3_click%2==1:
 		# show true labels
 		color_label = 'MO Label'
+		color_dict = {0:'Spam', 1:'HT', 2:'Massage Parlor'}
 	else:
 		color_label = 'Color'
 		show_color_bar = False
@@ -709,9 +713,21 @@ def update_graph(selected_clustering, clickData, selectedData, mini_dist_ind, b1
 
 	# the ICA, TSNE and UMAP are precomputed and saved to disk for plotting
 	if selected_clustering == 0: # ICA 2 comp
-		df = pd.read_csv("data/is_ica.zip",index_col=False) #CHANGE THE DATA FILES ACCORDINGLY
+		df = pd.read_csv("synthetic_data/is_ica.zip",index_col=False) #CHANGE THE DATA FILES ACCORDINGLY
 		df.set_index('cluster_id',drop=False,inplace=True)
-		df[color_label] = 'M'+df['cluster_id'].apply(lambda x: color_dict[x]).astype('str')
+		if color_label == 'Meta Cluster ID':
+			df[color_label] = 'M'+df['cluster_id'].apply(lambda x: color_dict[x]).astype(str)
+			labels={color_label:color_label}
+		elif color_label == 'Weak Label':
+			df[color_label] = df['cluster_id'].apply(lambda x: color_dict[weak_label_map[x]])
+			labels={color_label:color_label}
+		elif color_label == 'MO Label':
+			df[color_label] = df['cluster_id'].apply(lambda x: color_dict[micro_to_true[x]])
+			labels={color_label:color_label}
+		else:
+			df[color_label] = ['blue'] * len(df)
+			labels={color_label:color_label}
+		# df[color_label] = 'M'+df['cluster_id'].apply(lambda x: color_dict[x]).astype('str')
 
 		if color_label != 'Color':
 			fig = px.scatter(df, x='x',y='y', hover_data=hover_cols, height=1600, \
@@ -724,7 +740,7 @@ def update_graph(selected_clustering, clickData, selectedData, mini_dist_ind, b1
 		fig.update_layout(dragmode='lasso')
 
 	elif selected_clustering == 1: # TSNE
-		tsne_res = pkl.load(open("data/all_tsne_res.pkl",'rb')) # Since we are looking at multiple parameter values
+		tsne_res = pkl.load(open("synthetic_data/all_tsne_res.pkl",'rb')) # Since we are looking at multiple parameter values
 		perp_vals = list(tsne_res.keys())
 		titles = []
 		for p in perp_vals:
@@ -759,7 +775,7 @@ def update_graph(selected_clustering, clickData, selectedData, mini_dist_ind, b1
 
 
 	elif selected_clustering == 2: # UMAP
-		umap_res = pkl.load(open("data/umap_res.pkl",'rb')) # with multiple parameter values 
+		umap_res = pkl.load(open("synthetic_data/umap_res.pkl",'rb')) # with multiple parameter values 
 
 		nbr_sizes = [10, 50, 100, 200, 500, 1000]
 		mini_dists = [0, 0.01, 0.05, 0.1, 0.5, 1]
@@ -804,7 +820,7 @@ def update_graph(selected_clustering, clickData, selectedData, mini_dist_ind, b1
 		else:
 			cluster_id = clickData['points'][0]['customdata'][-1]
 			if selected_clustering == 1: # TSNE
-				tsne_res = pkl.load(open("data/all_tsne_res.pkl",'rb'))
+				tsne_res = pkl.load(open("synthetic_data/all_tsne_res.pkl",'rb'))
 				for i, p in enumerate(perp_vals):
 					dd = tsne_res[p]
 					dd.set_index('cluster_id', drop=False, inplace=True)
@@ -816,7 +832,7 @@ def update_graph(selected_clustering, clickData, selectedData, mini_dist_ind, b1
 					fig.append_trace(hover_trace, 1, i+1)
 
 			if selected_clustering == 2:
-				umap_res = pkl.load(open("data/umap_res.pkl",'rb'))
+				umap_res = pkl.load(open("synthetic_data/umap_res.pkl",'rb'))
 				nbr_sizes = [10, 50, 100, 200, 500, 1000]
 
 				template_str = ""
@@ -850,7 +866,7 @@ def update_graph(selected_clustering, clickData, selectedData, mini_dist_ind, b1
 	
 		else:
 			if selected_clustering == 1: # TSNE
-				tsne_res = pkl.load(open("data/all_tsne_res.pkl",'rb'))
+				tsne_res = pkl.load(open("synthetic_data/all_tsne_res.pkl",'rb'))
 				for i, p in enumerate(perp_vals):
 					dd = tsne_res[p]
 					dd.set_index('cluster_id', drop=False, inplace=True)
@@ -863,7 +879,7 @@ def update_graph(selected_clustering, clickData, selectedData, mini_dist_ind, b1
 
 			if selected_clustering == 2:
 				nbr_sizes = [10, 50, 100, 200, 500, 1000]
-				umap_res = pkl.load(open("data/umap_res.pkl",'rb'))
+				umap_res = pkl.load(open("synthetic_data/umap_res.pkl",'rb'))
 
 				template_str = ""
 				for i, col in enumerate(hover_cols):
@@ -915,8 +931,8 @@ Input('b2', 'n_clicks'), # input: if weak label is clicked
 Input('b3', 'n_clicks')) # input: if true label is clicked
 def enlarge_subplot(selected_clustering, clickData, selectedData, mini_dist_ind, b1_click, b2_click, b3_click):
 
-	tsne_res = pkl.load(open("data/all_tsne_res.pkl",'rb'))
-	umap_res = pkl.load(open("data/umap_res.pkl",'rb'))
+	tsne_res = pkl.load(open("synthetic_data/all_tsne_res.pkl",'rb'))
+	umap_res = pkl.load(open("synthetic_data/umap_res.pkl",'rb'))
 
 	show_color_bar = True
 	if b1_click and b1_click%2==1: # if button has been clicked on
@@ -929,6 +945,7 @@ def enlarge_subplot(selected_clustering, clickData, selectedData, mini_dist_ind,
 	elif b3_click and b3_click%2==1:
 		# show true labels
 		color_label = 'MO Label'
+		color_dict = {0:'Spam', 1:'HT', 2:'Massage Parlor'}
 	else:
 		color_label = 'Color'
 		show_color_bar = False
@@ -936,7 +953,19 @@ def enlarge_subplot(selected_clustering, clickData, selectedData, mini_dist_ind,
 
 	if selected_clustering == 0 or not clickData: # not TSNE/UMAP
 		dd = tsne_res[10]
-		dd[color_label] = 'M'+dd['cluster_id'].apply(lambda x: color_dict[x]).astype(str)
+		if color_label == 'Meta Cluster ID':
+			dd[color_label] = 'M'+dd['cluster_id'].apply(lambda x: color_dict[x]).astype(str)
+			labels={color_label:color_label}
+		elif color_label == 'Weak Label':
+			dd[color_label] = dd['cluster_id'].apply(lambda x: color_dict[weak_label_map[x]])
+			labels={color_label:color_label}
+		elif color_label == 'MO Label':
+			dd[color_label] = dd['cluster_id'].apply(lambda x: color_dict[micro_to_true[x]])
+			labels={color_label:color_label}
+		else:
+			dd[color_label] = ['blue'] * len(dd)
+			labels={color_label:color_label}
+		# dd[color_label] = 'M'+dd['cluster_id'].apply(lambda x: color_dict[x]).astype(str)
 		try:
 			fig = px.scatter(dd, x='x',y='y', hover_data=hover_cols, color=color_label)
 		except Exception:
@@ -956,7 +985,19 @@ def enlarge_subplot(selected_clustering, clickData, selectedData, mini_dist_ind,
 				perp_index = perp_index % len(perp_vals) 
 			perplexity = perp_vals[perp_index]
 			dd = tsne_res[perplexity]
-			dd[color_label] = 'M'+dd['cluster_id'].apply(lambda x: color_dict[x]).astype(str)
+			if color_label == 'Meta Cluster ID':
+				dd[color_label] = 'M'+dd['cluster_id'].apply(lambda x: color_dict[x]).astype(str)
+				labels={color_label:color_label}
+			elif color_label == 'Weak Label':
+				dd[color_label] = dd['cluster_id'].apply(lambda x: color_dict[weak_label_map[x]])
+				labels={color_label:color_label}
+			elif color_label == 'MO Label':
+				dd[color_label] = dd['cluster_id'].apply(lambda x: color_dict[micro_to_true[x]])
+				labels={color_label:color_label}
+			else:
+				dd[color_label] = ['blue'] * len(dd)
+				labels={color_label:color_label}
+			# dd[color_label] = 'M'+dd['cluster_id'].apply(lambda x: color_dict[x]).astype(str)
 			title = 'Perplexity:'+str(perplexity)
 			
 		else:
@@ -968,7 +1009,19 @@ def enlarge_subplot(selected_clustering, clickData, selectedData, mini_dist_ind,
 
 			nbr_size = nbr_sizes[nbr_size_ind]
 			dd = umap_res[nbr_size_ind][mini_dist_ind]
-			dd[color_label] = 'M'+dd['cluster_id'].apply(lambda x: color_dict[x]).astype(str)
+			if color_label == 'Meta Cluster ID':
+				dd[color_label] = 'M'+dd['cluster_id'].apply(lambda x: color_dict[x]).astype(str)
+				labels={color_label:color_label}
+			elif color_label == 'Weak Label':
+				dd[color_label] = dd['cluster_id'].apply(lambda x: color_dict[weak_label_map[x]])
+				labels={color_label:color_label}
+			elif color_label == 'MO Label':
+				dd[color_label] = dd['cluster_id'].apply(lambda x: color_dict[micro_to_true[x]])
+				labels={color_label:color_label}
+			else:
+				dd[color_label] = ['blue'] * len(dd)
+				labels={color_label:color_label}
+			# dd[color_label] = 'M'+dd['cluster_id'].apply(lambda x: color_dict[x]).astype(str)
 			title = 'Nbrhood Size:'+str(nbr_size)
 			
 		if color_label != 'Color':

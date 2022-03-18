@@ -68,7 +68,9 @@ def get_location_time_info(df, geoloc_info):
 	> 5000: Category 5
 
 	'''
-
+	df['cleaned_loc'] = df['location'].copy()
+	df['ad_id'] = df.index.values
+	geoloc_info = geoloc_info[['id','xcoord','ycoord']].rename(columns={'xcoord':'lat','ycoord':'lng'}).set_index('id')
 	ads_per_location_time_df = pd.DataFrame(columns=['date','lat','lon','count','location','meta_label'])
 	lats = []
 	lons = []
