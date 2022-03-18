@@ -24,6 +24,6 @@ jsonschema==3.2.0
 geojson
 gunicorn
 whitenoise
-numpy==1.20.0
+numpy==1.21.0
 scipy==1.6.0
 scikit-learn==0.23.2
