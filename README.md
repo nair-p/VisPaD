@@ -34,6 +34,8 @@ pip install -r requirements.txt
 
 Some of the required data files are included. Data that contains person identifying information cannot be shared publicly but can be made available on request after agreeing to the terms of sharing. Please reach out by sending an email to [this address](mailto:pratheeksha.nair@mail.mcgill.ca) for dataset access. 
 
+However, in order to demonstrate how the tool works, we've included some synthetic [dummy data](/synthetic_data/synthetic_data_changed.csv) in this repository. The text column in this dataframe does not make sense as it is a constructed by randomly sampling words from the english dictionary. 
+
 ## VisPaD
 ```
 python app.py
