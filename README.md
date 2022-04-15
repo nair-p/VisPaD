@@ -3,6 +3,9 @@ An interactive visual system designed for domain experts to annotate clusters of
 
 Lee, M.C., Vajiac, C., Kulshrestha, A., Levy, S., Park, N., Jones, C., Rabbany, R., and Faloutsos, C., "InfoShield: Generalizable Information-Theoretic Human-Trafficking Detection". 37th IEEE International Conference on Data Engineering (ICDE), 2021.
 
+## Demo Video
+A demo of how the tool works can be found [here](https://www.youtube.com/watch?v=lFr_N_ncREk).
+
 ## Creating a virtual environment
 
 It is highly recommended to use a virtual environment for running this app as it helps dealing with dependencies of packages.
