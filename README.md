@@ -1,5 +1,7 @@
 # VisPaD
-An interactive visual system designed for domain experts to annotate suspicious clusters of escort ads
+An interactive visual system designed for domain experts to annotate clusters of escort ads based on suspiciousness of trafficking. It makes use of micro-clusters obtained by running Infoshield algorithm. To run Infoshield, check their Github repo [here](https://github.com/mengchillee/InfoShield).
+
+Lee, M.C., Vajiac, C., Kulshrestha, A., Levy, S., Park, N., Jones, C., Rabbany, R., and Faloutsos, C., "InfoShield: Generalizable Information-Theoretic Human-Trafficking Detection". 37th IEEE International Conference on Data Engineering (ICDE), 2021.
 
 ## Creating a virtual environment
 
